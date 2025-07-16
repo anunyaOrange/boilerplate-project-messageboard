@@ -7,6 +7,7 @@ module.exports = function (app) {
     res.json({ message: 'GET threads for board: ' + req.params.board });
   })
   .post((req, res) => {
+    console.log("req.body", req.body);
     res.json({ message: 'POST thread to board: ' + req.params.board });
   })
   .put((req, res) => {
