@@ -12,7 +12,8 @@ suite('Functional Tests', function () {
             .post("/api/threads/xboardx")
             .send({ board: "xboardx", text: "kk", delete_password: "123456" })
             .end((err, res) => {
-                console.log("err,res: ", err, res);
+                // console.log("err,res: ", err, res);
+                console.log("res.body: ", res.body);
                 assert.equal(100, 100);
             });
         done();
