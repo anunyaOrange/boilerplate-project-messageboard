@@ -7,76 +7,77 @@ chai.use(chaiHttp);
 
 suite('Functional Tests', function () {
 
-    test("test1", (done) => {
-        chai.request(server)
-            .post("/api/threads/xboardx")
-            .send({ board: "xboardx", text: "kk", delete_password: "123456" })
-            .end((err, res) => {
-                // console.log("err,res: ", err, res);
-                console.log("res.body: ", res.body);
-                assert.equal(100, 100);
-            });
+  test("Creating a new thread", (done) => {
+    chai.request(server)
+      .post("/api/threads/xboardx")
+      .send({ board: "xboardx", text: "kk", delete_password: "123456" })
+      .end((err, res) => {
+        assert.equal(res.statusCode, 200);
+        // console.log("err,res: ", err, res);
+        console.log("res.body: ", res.body);
+        assert.equal(100, 100);
         done();
-    });
+      });
+  });
 
-    // test('Viewing one stock', function (done) {
-    //     chai.request(server)
-    //         .get('/api/stock-prices?stock=GOOG')
-    //         .end((err, res) => {
-    //             assert.equal(res.statusCode, 200);
-    //             const data = JSON.parse(res.text);
-    //             assert.equal(data.stockData.stock, "GOOG");
-    //             done(); // Signal Mocha that the asynchronous test is complete
-    //         });
-    // });
+  // test('Viewing one stock', function (done) {
+  //     chai.request(server)
+  //         .get('/api/stock-prices?stock=GOOG')
+  //         .end((err, res) => {
+  //             assert.equal(res.statusCode, 200);
+  //             const data = JSON.parse(res.text);
+  //             assert.equal(data.stockData.stock, "GOOG");
+  //             done(); // Signal Mocha that the asynchronous test is complete
+  //         });
+  // });
 
-    // test('Viewing one stock and liking it', function (done) {
-    //     chai.request(server)
-    //         .get('/api/stock-prices?stock=GOOG&like=true')
-    //         .end((err, res) => {
-    //             assert.equal(res.statusCode, 200);
-    //             const data = JSON.parse(res.text);
-    //             assert.equal(data.stockData.stock, "GOOG");
-    //             assert.equal(data.stockData.likes, 1);
-    //             done(); // Signal Mocha that the asynchronous test is complete
-    //         });
-    // });
+  // test('Viewing one stock and liking it', function (done) {
+  //     chai.request(server)
+  //         .get('/api/stock-prices?stock=GOOG&like=true')
+  //         .end((err, res) => {
+  //             assert.equal(res.statusCode, 200);
+  //             const data = JSON.parse(res.text);
+  //             assert.equal(data.stockData.stock, "GOOG");
+  //             assert.equal(data.stockData.likes, 1);
+  //             done(); // Signal Mocha that the asynchronous test is complete
+  //         });
+  // });
 
-    // test('Viewing the same stock and liking it again', function (done) {
-    //     chai.request(server)
-    //         .get('/api/stock-prices?stock=GOOG&like=true')
-    //         .end((err, res) => {
-    //             assert.equal(res.statusCode, 200);
-    //             const data = JSON.parse(res.text);
-    //             assert.equal(data.stockData.stock, "GOOG");
-    //             assert.equal(data.stockData.likes, 1);
-    //             done(); // Signal Mocha that the asynchronous test is complete
-    //         });
-    // });
+  // test('Viewing the same stock and liking it again', function (done) {
+  //     chai.request(server)
+  //         .get('/api/stock-prices?stock=GOOG&like=true')
+  //         .end((err, res) => {
+  //             assert.equal(res.statusCode, 200);
+  //             const data = JSON.parse(res.text);
+  //             assert.equal(data.stockData.stock, "GOOG");
+  //             assert.equal(data.stockData.likes, 1);
+  //             done(); // Signal Mocha that the asynchronous test is complete
+  //         });
+  // });
 
-    // test('Viewing two stocks', function (done) {
-    //     chai.request(server)
-    //         .get('/api/stock-prices?stock=GOOG&stock=AMD')
-    //         .end((err, res) => {
-    //             assert.equal(res.statusCode, 200);
-    //             const data = JSON.parse(res.text);
-    //             assert.equal(data.stockData[0].stock, "GOOG");
-    //             assert.equal(data.stockData[1].stock, "AMD");
-    //             done(); // Signal Mocha that the asynchronous test is complete
-    //         });
-    // });
+  // test('Viewing two stocks', function (done) {
+  //     chai.request(server)
+  //         .get('/api/stock-prices?stock=GOOG&stock=AMD')
+  //         .end((err, res) => {
+  //             assert.equal(res.statusCode, 200);
+  //             const data = JSON.parse(res.text);
+  //             assert.equal(data.stockData[0].stock, "GOOG");
+  //             assert.equal(data.stockData[1].stock, "AMD");
+  //             done(); // Signal Mocha that the asynchronous test is complete
+  //         });
+  // });
 
-    // test('Viewing two stocks and liking them', function (done) {
-    //     chai.request(server)
-    //         .get('/api/stock-prices?stock=GOOG&stock=AMD&like=true')
-    //         .end((err, res) => {
-    //             assert.equal(res.statusCode, 200);
-    //             const data = JSON.parse(res.text);
-    //             assert.equal(data.stockData[0].stock, "GOOG");
-    //             assert.equal(data.stockData[1].stock, "AMD");
-    //             assert.equal(data.stockData[0].rel_likes, 0);
-    //             assert.equal(data.stockData[1].rel_likes, 0);
-    //             done(); // Signal Mocha that the asynchronous test is complete
-    //         });
-    // });
+  // test('Viewing two stocks and liking them', function (done) {
+  //     chai.request(server)
+  //         .get('/api/stock-prices?stock=GOOG&stock=AMD&like=true')
+  //         .end((err, res) => {
+  //             assert.equal(res.statusCode, 200);
+  //             const data = JSON.parse(res.text);
+  //             assert.equal(data.stockData[0].stock, "GOOG");
+  //             assert.equal(data.stockData[1].stock, "AMD");
+  //             assert.equal(data.stockData[0].rel_likes, 0);
+  //             assert.equal(data.stockData[1].rel_likes, 0);
+  //             done(); // Signal Mocha that the asynchronous test is complete
+  //         });
+  // });
 });
