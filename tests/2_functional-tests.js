@@ -9,8 +9,8 @@ suite('Functional Tests', function () {
 
   test("Creating a new thread", (done) => {
     chai.request(server)
-      .post("/api/threads/xboardx")
-      .send({ board: "xboardx", text: "kk", delete_password: "123456" })
+      .post("/api/threads/test-board")
+      .send({ board: "test-board", text: "kk", delete_password: "123456" })
       .end((err, res) => {
         assert.equal(res.statusCode, 200);
         // console.log("err,res: ", err, res);
@@ -20,16 +20,16 @@ suite('Functional Tests', function () {
       });
   });
 
-  // test('Viewing one stock', function (done) {
-  //     chai.request(server)
-  //         .get('/api/stock-prices?stock=GOOG')
-  //         .end((err, res) => {
-  //             assert.equal(res.statusCode, 200);
-  //             const data = JSON.parse(res.text);
-  //             assert.equal(data.stockData.stock, "GOOG");
-  //             done(); // Signal Mocha that the asynchronous test is complete
-  //         });
-  // });
+  test('Viewing the 10 most recent threads with 3 replies each', function (done) {
+      chai.request(server)
+          .get('/api/threads/test-board')
+          .end((err, res) => {
+              assert.equal(res.statusCode, 200);
+              const data = JSON.parse(res.text);
+              // assert.equal(data.stockData.stock, "GOOG");
+              done(); // Signal Mocha that the asynchronous test is complete
+          });
+  });
 
   // test('Viewing one stock and liking it', function (done) {
   //     chai.request(server)
