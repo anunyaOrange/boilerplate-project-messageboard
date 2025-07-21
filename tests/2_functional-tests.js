@@ -10,7 +10,7 @@ suite('Functional Tests', function () {
   test("Creating a new thread", (done) => {
     chai.request(server)
       .post("/api/threads/test-board")
-      .send({ board: "test-board", text: "kk", delete_password: "123456" })
+      .send({ board: "test-board", text: "First text on test-board with delete_password = 123456", delete_password: "123456" })
       .end((err, res) => {
         assert.equal(res.statusCode, 200);
         // console.log("err,res: ", err, res);

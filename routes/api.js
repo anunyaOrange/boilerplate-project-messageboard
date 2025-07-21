@@ -1,6 +1,18 @@
 'use strict';
 
-const db = [];
+const db = [{
+  id: 1,
+  board: 'test-board',
+  delete_password: '123456',
+  text: 'This is a sample thread text',
+  created_on: new Date(),
+  replies: [{
+    id: 1,
+    text: 'This is a sample reply',
+    delete_password: '123456',
+    created_on: new Date(),
+  }],
+}];
 
 module.exports = function (app) {
   
