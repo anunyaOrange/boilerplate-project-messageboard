@@ -27,8 +27,17 @@ module.exports = function (app) {
   })
   .post((req, res) => {
     console.log("pre db: ", db);
-    db.push(`${db.length + 1} - ${req.body.text} on board ${req.params.board}`);
-    res.json({ message: 'POST thread to board: ' + req.params.board + ' => ' + JSON.stringify(req.body) + ' => ' + db });
+    const data = {
+      uuidid: uuidv4(),
+      nanoid: nanoid(),
+      board: req.params.board,
+      delete_password: req.body.delete_password,
+      text: req.body.text,
+      created_on: new Date(),
+      replies: [],
+    };
+    db.push(data);
+    res.json(data);
   })
   .put((req, res) => {
     res.json({ message: 'PUT thread on board: ' + req.params.board });
