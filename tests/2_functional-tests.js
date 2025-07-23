@@ -13,9 +13,18 @@ suite('Functional Tests', function () {
       .send({ board: "test-board", text: "First text on test-board with delete_password = 123456", delete_password: "123456" })
       .end((err, res) => {
         assert.equal(res.statusCode, 200);
-        // console.log("err,res: ", err, res);
-        console.log("res.body: ", res.body);
-        assert.equal(100, 100);
+        const data = res.body;
+        assert.isObject(data);
+        assert.property(data, 'board');
+        assert.property(data, 'delete_password');
+        assert.property(data, 'text');
+        assert.property(data, 'created_on');
+        assert.isArray(data.replies);
+        assert.equal(data.board, "test-board");
+        assert.equal(data.text, "First text on test-board with delete_password = 123456");
+        assert.equal(data.delete_password, "123456");
+        assert.isString(data.created_on);
+        assert.equal(data.replies.length, 0);
         done();
       });
   });
