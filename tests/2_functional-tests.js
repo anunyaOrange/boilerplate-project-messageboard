@@ -30,14 +30,15 @@ suite('Functional Tests', function () {
   });
 
   test('Viewing the 10 most recent threads with 3 replies each', function (done) {
-      chai.request(server)
-          .get('/api/threads/test-board')
-          .end((err, res) => {
-              assert.equal(res.statusCode, 200);
-              const data = JSON.parse(res.text);
-              // assert.equal(data.stockData.stock, "GOOG");
-              done(); // Signal Mocha that the asynchronous test is complete
-          });
+    chai.request(server)
+     .get('/api/threads/test-board')
+      .end((err, res) => {
+        assert.equal(res.statusCode, 200);
+        const data = res.body;
+        // assert.isObject(data);
+        console.log("Viewing threads data: ", data);
+        done(); // Signal Mocha that the asynchronous test is complete
+      });
   });
 
   // test('Viewing one stock and liking it', function (done) {

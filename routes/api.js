@@ -23,7 +23,24 @@ module.exports = function (app) {
 
   app.route('/api/threads/:board')
     .get((req, res) => {
-      res.json({ message: 'GET threads for board: ' + req.params.board });
+      const board = req.params.board;
+      const threads = db.filter(thread => thread.board === board);
+      console.log("GET /api/threads/:board DB: ", db);
+      console.log("GET /api/threads/:board threads: ", threads);
+      if (threads.length === 0) {
+        return res.status(404).json({ message: 'No threads found for this board' });
+      }
+      // Limit to 10 most recent threads with 3 replies each
+      const recentThreads = threads.slice(-10).map(thread => ({
+        uuidid: thread.uuidid,
+        nanoid: thread.nanoid,
+        board: thread.board,
+        text: thread.text,
+        created_on: thread.created_on,
+        replies: thread.replies.slice(-3), // Limit to 3 replies
+      }));
+      console.log("GET /api/threads/:board recentThreads: ", recentThreads);
+      res.json(recentThreads);
     })
     .post((req, res) => {
       const data = {
