@@ -60,7 +60,16 @@ module.exports = function (app) {
       res.json({ message: 'PUT thread on board: ' + req.params.board });
     })
     .delete((req, res) => {
-      res.json({ message: 'DELETE thread from board: ' + req.params.board });
+      console.log("DELETE /api/threads/:board DB before delete: ", db);
+      const board = req.params.board;
+      const threadIndex = db.findIndex(thread => thread.board === board && thread.delete_password === req.body.delete_password);
+      if (threadIndex === -1) {
+        return res.status(400).json({ message: 'Incorrect password or thread not found' });
+      }
+      db.splice(threadIndex, 1);
+      console.log("DELETE /api/threads/:board DB after delete: ", db);
+      // Assuming we return a success message
+      res.json({ message: 'Thread deleted successfully' });
     });
 
   app.route('/api/replies/:board');
