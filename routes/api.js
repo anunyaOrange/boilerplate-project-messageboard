@@ -68,8 +68,7 @@ module.exports = function (app) {
       }
       db.splice(threadIndex, 1);
       console.log("DELETE /api/threads/:board DB after delete: ", db);
-      // Assuming we return a success message
-      res.json({ message: 'Thread deleted successfully' });
+      res.json({ message: 'deleted' });
     });
 
   app.route('/api/replies/:board');
