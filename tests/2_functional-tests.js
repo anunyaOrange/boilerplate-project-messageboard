@@ -53,6 +53,30 @@ suite('Functional Tests', function () {
       });
   });
 
+  test('Deleting a thread with the correct password', function (done) {
+    chai.request(server)
+      .delete('/api/threads/test-board')
+      .end((err, res) => {
+        assert.equal(res.statusCode, 200);
+        const data = res.body;
+        // assert.isObject(data);
+        console.log("Data: ", data);
+        done(); // Signal Mocha that the asynchronous test is complete
+      });
+  });
+
+    test('Reporting a thread', function (done) {
+    chai.request(server)
+      .put('/api/threads/test-board')
+      .end((err, res) => {
+        assert.equal(res.statusCode, 200);
+        const data = res.body;
+        // assert.isObject(data);
+        console.log("Data: ", data);
+        done(); // Signal Mocha that the asynchronous test is complete
+      });
+  });
+
   // test('Viewing one stock and liking it', function (done) {
   //     chai.request(server)
   //         .get('/api/stock-prices?stock=GOOG&like=true')
