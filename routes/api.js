@@ -57,7 +57,8 @@ module.exports = function (app) {
       res.json(data);
     })
     .put((req, res) => {
-      res.json({ message: 'PUT thread on board: ' + req.params.board });
+
+      res.text = 'reported';
     })
     .delete((req, res) => {
       console.log("DELETE /api/threads/:board DB before delete: ", db);
