@@ -3,21 +3,43 @@
 const { nanoid } = require("nanoid");
 const { v4: uuidv4 } = require('uuid');
 
-const db = [{
-  uuidid: uuidv4(),
-  nanoid: nanoid(),
-  board: 'example',
-  delete_password: 'xxxxx',
-  text: 'This is example text',
-  created_on: new Date(),
-  replies: [{
-    uuidid: uuidv4(),
-    nanoid: nanoid(),
-    text: 'This is example reply',
-    delete_password: 'xxxxx',
-    created_on: new Date(),
-  }],
-}];
+// const db = [{
+//   uuidid: uuidv4(),
+//   nanoid: nanoid(),
+//   board: 'example',
+//   delete_password: 'xxxxx',
+//   text: 'This is example text',
+//   created_on: new Date(),
+//   replies: [{
+//     uuidid: uuidv4(),
+//     nanoid: nanoid(),
+//     text: 'This is example reply',
+//     delete_password: 'xxxxx',
+//     created_on: new Date(),
+//   }],
+// }];
+
+const db = [
+  {
+    board: 'example',
+    threads: [
+      {
+        uuidid: uuidv4(),
+        nanoid: nanoid(),
+        delete_password: 'xxxxx',
+        text: 'This is example text',
+        created_on: new Date(),
+        replies: [{
+          uuidid: uuidv4(),
+          nanoid: nanoid(),
+          text: 'This is example reply',
+          delete_password: 'xxxxx',
+          created_on: new Date(),
+        }],
+      }
+    ],
+  }
+];
 
 module.exports = function (app) {
 

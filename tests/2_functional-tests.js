@@ -45,9 +45,9 @@ suite('Functional Tests', function () {
     chai.request(server)
       .delete('/api/threads/test-board')
       .end((err, res) => {
-        assert.equal(res.statusCode, 200);
+        assert.equal(res.statusCode, 400);
         const data = res.body;
-        // assert.isObject(data);
+        assert.isObject(data);
         console.log("Data: ", data);
         done(); // Signal Mocha that the asynchronous test is complete
       });
@@ -71,8 +71,7 @@ suite('Functional Tests', function () {
       .send({ report_id: "6889ac63c0ebef0013ff271b" })
       .end((err, res) => {
         assert.equal(res.statusCode, 200);
-        const data = res.body;
-        // assert.isObject(data);
+        const data = res.text;
         console.log("Data: ", data);
         done(); // Signal Mocha that the asynchronous test is complete
       });
