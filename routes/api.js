@@ -24,14 +24,12 @@ const db = [
     board: 'example',
     threads: [
       {
-        uuidid: uuidv4(),
-        nanoid: nanoid(),
+        tid: uuidv4(),
         delete_password: 'xxxxx',
         text: 'This is example text',
         created_on: new Date(),
         replies: [{
-          uuidid: uuidv4(),
-          nanoid: nanoid(),
+          rid: uuidv4(),
           text: 'This is example reply',
           delete_password: 'xxxxx',
           created_on: new Date(),
@@ -46,17 +44,17 @@ module.exports = function (app) {
   app.route('/api/threads/:board')
     .get((req, res) => {
       const board = req.params.board;
-      const threads = db.filter(thread => thread.board === board);
-      console.log("GET /api/threads/:board DB: ", db);
+      const boardDB = db.filter(b => b.board === board);
+      console.log("GET /api/threads/:board boardDB: ", boardDB);
+      const threads = boardDB.length > 0 ? boardDB[0].threads : [];
       console.log("GET /api/threads/:board threads: ", threads);
+
       if (threads.length === 0) {
         return res.status(404).json({ message: 'No threads found for this board' });
       }
       // Limit to 10 most recent threads with 3 replies each
       const recentThreads = threads.slice(-10).map(thread => ({
-        uuidid: thread.uuidid,
-        nanoid: thread.nanoid,
-        board: thread.board,
+        tid: thread.tid,
         text: thread.text,
         created_on: thread.created_on,
         replies: thread.replies.slice(-3), // Limit to 3 replies
@@ -66,9 +64,8 @@ module.exports = function (app) {
     })
     .post((req, res) => {
       const data = {
-        uuidid: uuidv4(),
-        nanoid: nanoid(),
-        board: req.params.board,
+        tid: uuidv4(),
+        xxxxxxxxxx_HERE_board: req.params.board,
         delete_password: req.body.delete_password,
         text: req.body.text,
         created_on: new Date(),
