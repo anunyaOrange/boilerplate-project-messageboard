@@ -63,15 +63,26 @@ module.exports = function (app) {
       res.json(recentThreads);
     })
     .post((req, res) => {
+      const board = req.params.board;
+      const boardDB = db.filter(b => b.board === board);
+
       const data = {
         tid: uuidv4(),
-        xxxxxxxxxx_HERE_board: req.params.board,
         delete_password: req.body.delete_password,
         text: req.body.text,
         created_on: new Date(),
         replies: [],
       };
-      db.push(data);
+
+      if (boardDB.length === 0) {
+        const newBoard = {
+          board: board,
+          threads: data
+        };
+        db.push(newBoard);
+      } else {
+        boardDB[0].threads.push(data);
+      }
       console.log("POST /api/threads/:board DB after push: ", db);
       res.json(data);
     })
