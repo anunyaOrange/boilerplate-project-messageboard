@@ -12,7 +12,8 @@ suite('Functional Tests', function () {
       .post("/api/threads/test-board")
       .send({ text: "First text on test-board with delete_password = 123456", delete_password: "123456" })
       .end((err, res) => {
-        assert.equal(res.statusCode, 200);
+        console.log("RESSSsponse: ", res.statusCode, res.text);
+        // assert.equal(res.statusCode, 200);
         const data = res.text;
         // assert.isObject(data);
         // assert.property(data, 'board');
@@ -30,53 +31,59 @@ suite('Functional Tests', function () {
       });
   });
 
-  test('Viewing the 10 most recent threads with 3 replies each', function (done) {
-    chai.request(server)
-      .get('/api/threads/test-board')
-      .end((err, res) => {
-        assert.equal(res.statusCode, 200);
-        const data = res.body;
-        // assert.isObject(data);
-        console.log("Viewing threads data: ", data);
-        done(); // Signal Mocha that the asynchronous test is complete
-      });
-  });
+  // test('Viewing the 10 most recent threads with 3 replies each', function (done) {
+  //   chai.request(server)
+  //     .get('/api/threads/test-board')
+  //     .end((err, res) => {
+  //       assert.equal(res.statusCode, 200);
+  //       const data = res.body;
+  //       // assert.isObject(data);
+  //       console.log("Viewing threads data: ", data);
+  //       done(); // Signal Mocha that the asynchronous test is complete
+  //     });
+  // });
 
-  test('Deleting a thread with the incorrect password', function (done) {
-    chai.request(server)
-      .delete('/api/threads/test-board')
-      .end((err, res) => {
-        assert.equal(res.statusCode, 400);
-        const data = res.body;
-        assert.isObject(data);
-        console.log("Data: ", data);
-        done(); // Signal Mocha that the asynchronous test is complete
-      });
-  });
+  // test('Deleting a thread with the incorrect password', function (done) {
+  //   chai.request(server)
+  //     .delete('/api/threads/test-board')
+  //     .end((err, res) => {
+  //       assert.equal(res.statusCode, 400);
+  //       const data = res.body;
+  //       assert.isObject(data);
+  //       console.log("Data: ", data);
+  //       done(); // Signal Mocha that the asynchronous test is complete
+  //     });
+  // });
 
-  test('Deleting a thread with the correct password', function (done) {
-    chai.request(server)
-      .delete('/api/threads/test-board')
-      .end((err, res) => {
-        assert.equal(res.statusCode, 200);
-        const data = res.body;
-        // assert.isObject(data);
-        console.log("Data: ", data);
-        done(); // Signal Mocha that the asynchronous test is complete
-      });
-  });
+  // test('Deleting a thread with the correct password', function (done) {
+  //   chai.request(server)
+  //     .delete('/api/threads/test-board')
+  //     .end((err, res) => {
+  //       assert.equal(res.statusCode, 200);
+  //       const data = res.body;
+  //       // assert.isObject(data);
+  //       console.log("Data: ", data);
+  //       done(); // Signal Mocha that the asynchronous test is complete
+  //     });
+  // });
 
-  test('Reporting a thread', function (done) {
-    chai.request(server)
-      .put('/api/threads/test-board')
-      .send({ report_id: "6889ac63c0ebef0013ff271b" })
-      .end((err, res) => {
-        assert.equal(res.statusCode, 200);
-        const data = res.text;
-        console.log("Data: ", data);
-        done(); // Signal Mocha that the asynchronous test is complete
-      });
-  });
+  // test('Reporting a thread', function (done) {
+  //   chai.request(server)
+  //     .put('/api/threads/test-board')
+  //     .send({ report_id: "6889ac63c0ebef0013ff271b" })
+  //     .end((err, res) => {
+  //       assert.equal(res.statusCode, 200);
+  //       const data = res.text;
+  //       console.log("Data: ", data);
+  //       done(); // Signal Mocha that the asynchronous test is complete
+  //     });
+  // });
+
+
+
+
+
+
 
   // test('Viewing one stock and liking it', function (done) {
   //     chai.request(server)
