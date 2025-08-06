@@ -84,7 +84,8 @@ module.exports = function (app) {
         boardDB[0].threads.push(data);
       }
       console.log("POST /api/threads/:board DB after push: ", db);
-      res.text = 'success';
+      res.set('Content-Type', 'text/plain');
+      res.send('success');
     })
     .put((req, res) => {
       const report_id = req.body.report_id;
