@@ -12,8 +12,7 @@ suite('Functional Tests', function () {
       .post("/api/threads/test-board")
       .send({ text: "First text on test-board with delete_password = 123456", delete_password: "123456" })
       .end((err, res) => {
-        console.log("RESSSsponse: ", res.statusCode, res.text);
-        // assert.equal(res.statusCode, 200);
+        assert.equal(res.statusCode, 200);
         const data = res.text;
         // assert.isObject(data);
         // assert.property(data, 'board');
@@ -31,17 +30,17 @@ suite('Functional Tests', function () {
       });
   });
 
-  // test('Viewing the 10 most recent threads with 3 replies each', function (done) {
-  //   chai.request(server)
-  //     .get('/api/threads/test-board')
-  //     .end((err, res) => {
-  //       assert.equal(res.statusCode, 200);
-  //       const data = res.body;
-  //       // assert.isObject(data);
-  //       console.log("Viewing threads data: ", data);
-  //       done(); // Signal Mocha that the asynchronous test is complete
-  //     });
-  // });
+  test('Viewing the 10 most recent threads with 3 replies each', function (done) {
+    chai.request(server)
+      .get('/api/threads/test-board')
+      .end((err, res) => {
+        assert.equal(res.statusCode, 200);
+        const data = res.body;
+        // assert.isObject(data);
+        console.log("Viewing threads data: ", data);
+        done(); // Signal Mocha that the asynchronous test is complete
+      });
+  });
 
   // test('Deleting a thread with the incorrect password', function (done) {
   //   chai.request(server)
