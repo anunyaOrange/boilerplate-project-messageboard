@@ -77,13 +77,13 @@ module.exports = function (app) {
       if (boardDB.length === 0) {
         const newBoard = {
           board: board,
-          threads: data
+          threads: [data]
         };
         db.push(newBoard);
       } else {
         boardDB[0].threads.push(data);
       }
-      console.log("POST /api/threads/:board DB after push: ", db);
+      // console.log("POST /api/threads/:board DB after push: ", db);
       res.set('Content-Type', 'text/plain');
       res.send('success');
     })
