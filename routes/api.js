@@ -42,6 +42,7 @@ const db = [
 module.exports = function (app) {
 
   app.route('/api/threads/:board')
+
     .get((req, res) => {
       const board = req.params.board;
       const boardDB = db.filter(b => b.board === board);
@@ -62,6 +63,7 @@ module.exports = function (app) {
       console.log("GET /api/threads/:board recentThreads: ", recentThreads);
       res.json(recentThreads);
     })
+
     .post((req, res) => {
       const board = req.params.board;
       const boardDB = db.filter(b => b.board === board);
@@ -83,15 +85,16 @@ module.exports = function (app) {
       } else {
         boardDB[0].threads.push(data);
       }
-      // console.log("POST /api/threads/:board DB after push: ", db);
       res.set('Content-Type', 'text/plain');
       res.send('success');
     })
+
     .put((req, res) => {
       const report_id = req.body.report_id;
       console.log("PUT /api/threads/:board report_id: ", report_id);
       res.status(200).text('reported');
     })
+    
     .delete((req, res) => {
       console.log("DELETE /api/threads/:board DB before delete: ", db);
       const board = req.params.board;
