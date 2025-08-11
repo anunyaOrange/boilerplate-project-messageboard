@@ -44,7 +44,8 @@ suite('Functional Tests', function () {
 
   test('Deleting a thread with the incorrect password', function (done) {
     chai.request(server)
-      .delete('/api/threads/test-board')
+      .delete('/api/threads/example')
+      .send({ thread_id: "3650e13f-820c-4365-b127-29497b4fa93f", delete_password: "1234" })
       .end((err, res) => {
         assert.equal(res.statusCode, 400);
         const data = res.body;

@@ -34,6 +34,18 @@ const db = [
           delete_password: 'xxxxx',
           created_on: new Date(),
         }],
+      },
+      {
+        tid: '3650e13f-820c-4365-b127-29497b4fa93f',
+        delete_password: '123456',
+        text: 'This is example text for delete',
+        created_on: new Date(),
+        replies: [{
+          rid: uuidv4(),
+          text: 'This is example reply',
+          delete_password: 'xxxxx',
+          created_on: new Date(),
+        }],
       }
     ],
   }
