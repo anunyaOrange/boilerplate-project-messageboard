@@ -106,17 +106,30 @@ module.exports = function (app) {
       console.log("PUT /api/threads/:board report_id: ", report_id);
       res.status(200).text('reported');
     })
-    
+
     .delete((req, res) => {
-      console.log("DELETE /api/threads/:board DB before delete: ", db);
       const board = req.params.board;
+      const boardDB = db.filter(b => b.board === board);
+
+      res.set('Content-Type', 'text/plain');
+
+      if (boardDB.length === 0) {
+        res.send('incorrect board');
+      }
+
+      if (!req.body.thread_id || !req.body.delete_password) {
+        return res.status(400).send('missing required fields');
+      }
+
+      boardDB[0].threads = boardDB[0].threads.filter(thread => thread.tid !== req.body.thread_id && thread.delete_password !== req.body.delete_password);
+
       const threadIndex = db.findIndex(thread => thread.board === board && thread.delete_password === req.body.delete_password);
       if (threadIndex === -1) {
-        return res.status(400).json({ message: 'Incorrect password or thread not found' });
+        res.send('incorrect password');
       }
       db.splice(threadIndex, 1);
       console.log("DELETE /api/threads/:board DB after delete: ", db);
-      res.json({ message: 'deleted - NEED Re-check' });
+      res.send('success');
     });
 
   app.route('/api/replies/:board');
