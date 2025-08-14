@@ -37,7 +37,7 @@ suite('Functional Tests', function () {
         assert.equal(res.statusCode, 200);
         const data = res.body;
         // assert.isObject(data);
-        console.log("Viewing threads data: ", data);
+        // console.log("Viewing threads data: ", data);
         done(); // Signal Mocha that the asynchronous test is complete
       });
   });
@@ -47,10 +47,9 @@ suite('Functional Tests', function () {
       .delete('/api/threads/example')
       .send({ thread_id: "3650e13f-820c-4365-b127-29497b4fa93f", delete_password: "1234" })
       .end((err, res) => {
-        assert.equal(res.statusCode, 400);
-        const data = res.body;
-        assert.isObject(data);
-        console.log("Data: ", data);
+        assert.equal(res.statusCode, 200);
+        const data = res.text;
+        assert.equal(data, "incorrect password");
         done(); // Signal Mocha that the asynchronous test is complete
       });
   });
@@ -58,11 +57,11 @@ suite('Functional Tests', function () {
   test('Deleting a thread with the correct password', function (done) {
     chai.request(server)
       .delete('/api/threads/test-board')
+      .send({ thread_id: "3650e13f-820c-4365-b127-29497b4fa93f", delete_password: "123456" })
       .end((err, res) => {
         assert.equal(res.statusCode, 200);
-        const data = res.body;
-        // assert.isObject(data);
-        console.log("Data: ", data);
+        const data = res.text;
+        assert.equal(data, "success");
         done(); // Signal Mocha that the asynchronous test is complete
       });
   });
