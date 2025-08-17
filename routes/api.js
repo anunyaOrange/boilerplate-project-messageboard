@@ -103,8 +103,9 @@ module.exports = function (app) {
 
     .put((req, res) => {
       const report_id = req.body.report_id;
-      console.log("PUT /api/threads/:board report_id: ", report_id);
-      res.status(200).text('reported');
+      // console.log("PUT /api/threads/:board report_id: ", report_id);
+      res.set('Content-Type', 'text/plain');
+      res.send('reported');
     })
 
     .delete((req, res) => {

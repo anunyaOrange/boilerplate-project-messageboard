@@ -66,17 +66,17 @@ suite('Functional Tests', function () {
       });
   });
 
-  // test('Reporting a thread', function (done) {
-  //   chai.request(server)
-  //     .put('/api/threads/test-board')
-  //     .send({ report_id: "6889ac63c0ebef0013ff271b" })
-  //     .end((err, res) => {
-  //       assert.equal(res.statusCode, 200);
-  //       const data = res.text;
-  //       console.log("Data: ", data);
-  //       done(); // Signal Mocha that the asynchronous test is complete
-  //     });
-  // });
+  test('Reporting a thread', function (done) {
+    chai.request(server)
+      .put('/api/threads/test-board')
+      .send({ report_id: "6889ac63c0ebef0013ff271b" })
+      .end((err, res) => {
+        assert.equal(res.statusCode, 200);
+        const data = res.text;
+        console.log("Data: ", data);
+        done(); // Signal Mocha that the asynchronous test is complete
+      });
+  });
 
 
 
