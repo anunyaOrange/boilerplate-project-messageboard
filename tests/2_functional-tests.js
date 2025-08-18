@@ -78,6 +78,18 @@ suite('Functional Tests', function () {
       });
   });
 
+  test('Creating a new reply', function (done) {
+    chai.request(server)
+      .post('/api/replies/test-board')
+      .send({ report_id: "6889ac63c0ebef0013ff271b" })
+      .end((err, res) => {
+        assert.equal(res.statusCode, 200);
+        const data = res.text;
+        console.log("Data: ", data);
+        done(); // Signal Mocha that the asynchronous test is complete
+      });
+  });
+
 
 
 
