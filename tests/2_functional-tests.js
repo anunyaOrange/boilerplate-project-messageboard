@@ -80,12 +80,12 @@ suite('Functional Tests', function () {
 
   test('Creating a new reply', function (done) {
     chai.request(server)
-      .post('/api/replies/test-board')
-      .send({ report_id: "6889ac63c0ebef0013ff271b" })
+      .post('/api/replies/example')
+      .send({ thread_id: "f250e13f-820c-4365-b127-29497b4fa9f2", text: "REP REP REPLY", delete_password: "123456" })
       .end((err, res) => {
         assert.equal(res.statusCode, 200);
         const data = res.text;
-        console.log("Data: ", data);
+        assert.equal(data, "success");
         done(); // Signal Mocha that the asynchronous test is complete
       });
   });

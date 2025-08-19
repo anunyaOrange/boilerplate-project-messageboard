@@ -38,7 +38,19 @@ const db = [
       {
         tid: '3650e13f-820c-4365-b127-29497b4fa93f',
         delete_password: '123456',
-        text: 'This is example text for delete',
+        text: 'This thread for delete',
+        created_on: new Date(),
+        replies: [{
+          rid: uuidv4(),
+          text: 'This is example reply',
+          delete_password: 'xxxxx',
+          created_on: new Date(),
+        }],
+      },
+      {
+        tid: 'f250e13f-820c-4365-b127-29497b4fa9f2',
+        delete_password: '123456',
+        text: 'This thread for replies',
         created_on: new Date(),
         replies: [{
           rid: uuidv4(),
@@ -137,7 +149,31 @@ module.exports = function (app) {
       }
     });
 
-  app.route('/api/replies/:board');
+  app.route('/api/replies/:board')
+    .post((req, res) => {
+      const board = req.params.board;
+      const boardDB = db.filter(b => b.board === board);
+
+      const data = {
+        tid: uuidv4(),
+        delete_password: req.body.delete_password,
+        text: req.body.text,
+        created_on: new Date(),
+        replies: [],
+      };
+
+      if (boardDB.length === 0) {
+        const newBoard = {
+          board: board,
+          threads: [data]
+        };
+        db.push(newBoard);
+      } else {
+        boardDB[0].threads.push(data);
+      }
+      res.set('Content-Type', 'text/plain');
+      res.send('success');
+    })
 
 };
 
