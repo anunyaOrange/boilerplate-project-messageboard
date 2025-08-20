@@ -153,27 +153,35 @@ module.exports = function (app) {
     .post((req, res) => {
       const board = req.params.board;
       const boardDB = db.filter(b => b.board === board);
+      const { thread_id, text, delete_password } = req.body;
 
-      const data = {
-        tid: uuidv4(),
-        delete_password: req.body.delete_password,
-        text: req.body.text,
-        created_on: new Date(),
-        replies: [],
+      const reply = {
+        rid: uuidv4(),
+        delete_password: delete_password,
+        text: text,
+        created_on: new Date()
       };
 
-      if (boardDB.length === 0) {
-        const newBoard = {
-          board: board,
-          threads: [data]
-        };
-        db.push(newBoard);
-      } else {
-        boardDB[0].threads.push(data);
-      }
       res.set('Content-Type', 'text/plain');
+
+      if (boardDB.length === 0) {
+        return res.send('incorrect board');
+      }
+
+      if (!thread_id || !text || !delete_password) {
+        return res.status(400).send('missing required fields');
+      }
+
+      const thread = boardDB[0].threads.find(thread => thread.tid === thread_id);
+      if (!thread) {
+        return res.send('incorrect thread_id');
+      }
+      thread.replies.push(reply);
       res.send('success');
     })
+
+
+    
 
 };
 
