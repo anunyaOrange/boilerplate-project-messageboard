@@ -90,6 +90,18 @@ suite('Functional Tests', function () {
       });
   });
 
+  test('Viewing a single thread with all replies', function (done) {
+    chai.request(server)
+      .get('/api/replies/example?thread_id=f250e13f-820c-4365-b127-29497b4fa9f2')
+      .end((err, res) => {
+        assert.equal(res.statusCode, 200);
+        const data = res.body;
+        assert.isObject(data);
+        console.log("Viewing threads data: ", data);
+        done(); // Signal Mocha that the asynchronous test is complete
+      });
+  });
+
 
 
 
