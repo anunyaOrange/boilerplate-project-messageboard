@@ -184,6 +184,7 @@ module.exports = function (app) {
     .get((req, res) => {
       const board = req.params.board;
       const boardDB = db.filter(b => b.board === board);
+      const thread_id = req.query.thread_id;
 
       if (boardDB.length === 0) {
         res.set('Content-Type', 'text/plain');
@@ -193,8 +194,17 @@ module.exports = function (app) {
       const threads = boardDB.length > 0 ? boardDB[0].threads : [];
 
       if (threads.length === 0) {
-        return res.status(404).json({ message: 'No threads found for this board' });
+        // return res.status(404).json({ message: 'No threads found for this board' });
+        res.set('Content-Type', 'text/plain');
+        return res.send('no threads found');
       }
+
+      const thread = threads.find(t => t.tid === thread_id);
+      if (!thread) {
+        res.set('Content-Type', 'text/plain');
+        return res.send('incorrect thread_id');
+      }
+      
       // Limit to 10 most recent threads with 3 replies each
       const recentThreads = threads.slice(-10).map(thread => ({
         tid: thread.tid,
@@ -205,7 +215,7 @@ module.exports = function (app) {
       // console.log("GET /api/threads/:board recentThreads: ", recentThreads);
       res.json(recentThreads);
     })
-    
+
 
 };
 
