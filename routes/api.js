@@ -204,16 +204,7 @@ module.exports = function (app) {
         res.set('Content-Type', 'text/plain');
         return res.send('incorrect thread_id');
       }
-      
-      // Limit to 10 most recent threads with 3 replies each
-      const recentThreads = threads.slice(-10).map(thread => ({
-        tid: thread.tid,
-        text: thread.text,
-        created_on: thread.created_on,
-        replies: thread.replies.slice(-3), // Limit to 3 replies
-      }));
-      // console.log("GET /api/threads/:board recentThreads: ", recentThreads);
-      res.json(recentThreads);
+      res.json(thread);
     })
 
 
