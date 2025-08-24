@@ -24,36 +24,36 @@ const db = [
     board: 'example',
     threads: [
       {
-        tid: uuidv4(),
+        _id: uuidv4(),
         delete_password: 'xxxxx',
         text: 'This is example text',
         created_on: new Date(),
         replies: [{
-          rid: uuidv4(),
+          _id: uuidv4(),
           text: 'This is example reply',
           delete_password: 'xxxxx',
           created_on: new Date(),
         }],
       },
       {
-        tid: '3650e13f-820c-4365-b127-29497b4fa93f',
+        _id: '3650e13f-820c-4365-b127-29497b4fa93f',
         delete_password: '123456',
         text: 'This thread for delete',
         created_on: new Date(),
         replies: [{
-          rid: uuidv4(),
+          _id: uuidv4(),
           text: 'This is example reply',
           delete_password: 'xxxxx',
           created_on: new Date(),
         }],
       },
       {
-        tid: 'f250e13f-820c-4365-b127-29497b4fa9f2',
+        _id: 'f250e13f-820c-4365-b127-29497b4fa9f2',
         delete_password: '123456',
         text: 'This thread for replies',
         created_on: new Date(),
         replies: [{
-          rid: uuidv4(),
+          _id: uuidv4(),
           text: 'This is example reply',
           delete_password: 'xxxxx',
           created_on: new Date(),
@@ -79,7 +79,7 @@ module.exports = function (app) {
       }
       // Limit to 10 most recent threads with 3 replies each
       const recentThreads = threads.slice(-10).map(thread => ({
-        tid: thread.tid,
+        _id: thread._id,
         text: thread.text,
         created_on: thread.created_on,
         replies: thread.replies.slice(-3), // Limit to 3 replies
@@ -139,11 +139,11 @@ module.exports = function (app) {
 
       // console.log("DELETE /api/threads/:board boardDB[0].threads: ", boardDB[0].threads);
 
-      const f = boardDB[0].threads.find(thread => thread.tid === thread_id && thread.delete_password === delete_password);
+      const f = boardDB[0].threads.find(thread => thread._id === thread_id && thread.delete_password === delete_password);
       if (!f) {
         return res.send('incorrect password');
       } else {
-        boardDB[0].threads = boardDB[0].threads.filter(thread => !(thread.tid === req.body.thread_id && thread.delete_password === req.body.delete_password));
+        boardDB[0].threads = boardDB[0].threads.filter(thread => !(thread._id === req.body.thread_id && thread.delete_password === req.body.delete_password));
         // console.log("DELETE /api/threads/:board DB after delete: ", db[0]);
         return res.send('success');
       }
@@ -173,7 +173,7 @@ module.exports = function (app) {
         return res.status(400).send('missing required fields');
       }
 
-      const thread = boardDB[0].threads.find(thread => thread.tid === thread_id);
+      const thread = boardDB[0].threads.find(thread => thread._id === thread_id);
       if (!thread) {
         return res.send('incorrect thread_id');
       }
@@ -199,7 +199,7 @@ module.exports = function (app) {
         return res.send('no threads found');
       }
 
-      const thread = threads.find(t => t.tid === thread_id);
+      const thread = threads.find(t => t._id === thread_id);
       if (!thread) {
         res.set('Content-Type', 'text/plain');
         return res.send('incorrect thread_id');
@@ -207,6 +207,34 @@ module.exports = function (app) {
       res.json(thread);
     })
 
+    .delete((req, res) => {
+      const board = req.params.board;
+      const boardDB = db.filter(b => b.board === board);
+      const { thread_id, delete_password } = req.body;
+
+      // console.log("DELETE /api/threads/:board req.body: ", thread_id, delete_password);
+
+      res.set('Content-Type', 'text/plain');
+
+      if (boardDB.length === 0) {
+        return res.send('incorrect board');
+      }
+
+      if (!thread_id || !delete_password) {
+        return res.status(400).send('missing required fields');
+      }
+
+      // console.log("DELETE /api/threads/:board boardDB[0].threads: ", boardDB[0].threads);
+
+      const f = boardDB[0].threads.find(thread => thread._id === thread_id && thread.delete_password === delete_password);
+      if (!f) {
+        return res.send('incorrect password');
+      } else {
+        boardDB[0].threads = boardDB[0].threads.filter(thread => !(thread._id === req.body.thread_id && thread.delete_password === req.body.delete_password));
+        // console.log("DELETE /api/threads/:board DB after delete: ", db[0]);
+        return res.send('success');
+      }
+    })
 
 };
 
