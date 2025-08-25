@@ -104,8 +104,8 @@ suite('Functional Tests', function () {
 
   test('Deleting a reply with the incorrect password', function (done) {
     chai.request(server)
-      .delete('/api/threads/example')
-      .send({ thread_id: "3650e13f-820c-4365-b127-29497b4fa93f", delete_password: "123456" })
+      .delete('/api/replies/example')
+      .send({ thread_id: "f250e13f-820c-4365-b127-29497b4fa9f2", reply_id: "a250e13f-820c-4365-b127-29497b4fa9fa", delete_password: "xxx" })
       .end((err, res) => {
         assert.equal(res.statusCode, 200);
         const data = res.text;
@@ -114,6 +114,17 @@ suite('Functional Tests', function () {
       });
   });
 
+  test('Deleting a reply with the correct password', function (done) {
+    chai.request(server)
+      .delete('/api/replies/example')
+      .send({ thread_id: "f250e13f-820c-4365-b127-29497b4fa9f2", reply_id: "a250e13f-820c-4365-b127-29497b4fa9fa", delete_password: "1234567" })
+      .end((err, res) => {
+        assert.equal(res.statusCode, 200);
+        const data = res.text;
+        assert.equal(data, "success");
+        done(); // Signal Mocha that the asynchronous test is complete
+      });
+  });
 
 
 

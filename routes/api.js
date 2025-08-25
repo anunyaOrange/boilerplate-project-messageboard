@@ -53,9 +53,9 @@ const db = [
         text: 'This thread for replies',
         created_on: new Date(),
         replies: [{
-          _id: uuidv4(),
-          text: 'This is example reply',
-          delete_password: 'xxxxx',
+          _id: 'a250e13f-820c-4365-b127-29497b4fa9fa',
+          text: 'This reply for delete',
+          delete_password: '1234567',
           created_on: new Date(),
         }],
       }
@@ -210,9 +210,7 @@ module.exports = function (app) {
     .delete((req, res) => {
       const board = req.params.board;
       const boardDB = db.filter(b => b.board === board);
-      const { thread_id, delete_password } = req.body;
-
-      // console.log("DELETE /api/threads/:board req.body: ", thread_id, delete_password);
+      const { thread_id, reply_id, delete_password } = req.body;
 
       res.set('Content-Type', 'text/plain');
 
@@ -220,18 +218,21 @@ module.exports = function (app) {
         return res.send('incorrect board');
       }
 
-      if (!thread_id || !delete_password) {
+      if (!thread_id || !reply_id || !delete_password) {
         return res.status(400).send('missing required fields');
       }
 
-      // console.log("DELETE /api/threads/:board boardDB[0].threads: ", boardDB[0].threads);
+      const thread = boardDB[0].threads.find(thread => thread._id === thread_id);
+      if (!thread) {
+        return res.send('incorrect thread');
+      }
 
-      const f = boardDB[0].threads.find(thread => thread._id === thread_id && thread.delete_password === delete_password);
+      const f = thread[0].replies.find(reply => reply._id === reply_id && reply.delete_password === delete_password);
       if (!f) {
         return res.send('incorrect password');
       } else {
-        boardDB[0].threads = boardDB[0].threads.filter(thread => !(thread._id === req.body.thread_id && thread.delete_password === req.body.delete_password));
-        // console.log("DELETE /api/threads/:board DB after delete: ", db[0]);
+        thread[0].replies = thread[0].replies.filter(reply => !(reply._id === reply_id && reply.delete_password === delete_password));
+        console.log("DELETE /api/replies/:board DB after delete: ", db[0]);
         return res.send('success');
       }
     })
