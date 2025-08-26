@@ -73,7 +73,7 @@ suite('Functional Tests', function () {
       .end((err, res) => {
         assert.equal(res.statusCode, 200);
         const data = res.text;
-        console.log("Data: ", data);
+        // console.log("Data: ", data);
         done(); // Signal Mocha that the asynchronous test is complete
       });
   });
@@ -97,7 +97,7 @@ suite('Functional Tests', function () {
         assert.equal(res.statusCode, 200);
         const data = res.body;
         assert.isObject(data);
-        console.log("Viewing threads data: ", data);
+        // console.log("Viewing threads data: ", data);
         done(); // Signal Mocha that the asynchronous test is complete
       });
   });
@@ -109,7 +109,7 @@ suite('Functional Tests', function () {
       .end((err, res) => {
         assert.equal(res.statusCode, 200);
         const data = res.text;
-        assert.equal(data, "success");
+        assert.equal(data, "incorrect password");
         done(); // Signal Mocha that the asynchronous test is complete
       });
   });

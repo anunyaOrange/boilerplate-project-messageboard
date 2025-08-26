@@ -227,12 +227,12 @@ module.exports = function (app) {
         return res.send('incorrect thread');
       }
 
-      const f = thread[0].replies.find(reply => reply._id === reply_id && reply.delete_password === delete_password);
+      const f = thread.replies.find(reply => reply._id === reply_id && reply.delete_password === delete_password);
       if (!f) {
         return res.send('incorrect password');
       } else {
-        thread[0].replies = thread[0].replies.filter(reply => !(reply._id === reply_id && reply.delete_password === delete_password));
-        console.log("DELETE /api/replies/:board DB after delete: ", db[0]);
+        thread.replies = thread.replies.filter(reply => !(reply._id === reply_id && reply.delete_password === delete_password));
+        console.log("DELETE /api/replies/:board DB after delete: ", db[0].threads[1]);
         return res.send('success');
       }
     })
