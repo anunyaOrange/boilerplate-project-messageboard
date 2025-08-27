@@ -232,7 +232,7 @@ module.exports = function (app) {
         return res.send('incorrect password');
       } else {
         thread.replies = thread.replies.filter(reply => !(reply._id === reply_id && reply.delete_password === delete_password));
-        console.log("DELETE /api/replies/:board DB after delete: ", db[0].threads[1]);
+        // console.log("DELETE /api/replies/:board DB after delete: ", db[0].threads[1]);
         return res.send('success');
       }
     })
