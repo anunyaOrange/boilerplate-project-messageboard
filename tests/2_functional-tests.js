@@ -126,7 +126,17 @@ suite('Functional Tests', function () {
       });
   });
 
-
+  test('Reporting a reply', function (done) {
+    chai.request(server)
+      .put('/api/replies/example')
+      .send({ thread_id: "f250e13f-820c-4365-b127-29497b4fa9f2", reply_id: "b250e13f-820c-4365-b127-29497b4fa9fb" })
+      .end((err, res) => {
+        assert.equal(res.statusCode, 200);
+        const data = res.text;
+        assert.equal(data, "reported");
+        done(); // Signal Mocha that the asynchronous test is complete
+      });
+  });
 
 
 

@@ -57,6 +57,12 @@ const db = [
           text: 'This reply for delete',
           delete_password: '1234567',
           created_on: new Date(),
+        },
+        {
+          _id: 'b250e13f-820c-4365-b127-29497b4fa9fb',
+          text: 'This reply for reporting',
+          delete_password: '1234567890',
+          created_on: new Date(),
         }],
       }
     ],
@@ -237,6 +243,12 @@ module.exports = function (app) {
       }
     })
 
+    .put((req, res) => {
+      const { thread_id, reply_id } = req.body;
+      // console.log("PUT /api/threads/:board report_id: ", report_id);
+      res.set('Content-Type', 'text/plain');
+      res.send('reported');
+    });
 };
 
 
