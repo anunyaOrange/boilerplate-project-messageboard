@@ -138,44 +138,6 @@ suite('Functional Tests', function () {
       });
   });
 
-
-
-  // test('Viewing one stock and liking it', function (done) {
-  //     chai.request(server)
-  //         .get('/api/stock-prices?stock=GOOG&like=true')
-  //         .end((err, res) => {
-  //             assert.equal(res.statusCode, 200);
-  //             const data = JSON.parse(res.text);
-  //             assert.equal(data.stockData.stock, "GOOG");
-  //             assert.equal(data.stockData.likes, 1);
-  //             done(); // Signal Mocha that the asynchronous test is complete
-  //         });
-  // });
-
-  // test('Viewing the same stock and liking it again', function (done) {
-  //     chai.request(server)
-  //         .get('/api/stock-prices?stock=GOOG&like=true')
-  //         .end((err, res) => {
-  //             assert.equal(res.statusCode, 200);
-  //             const data = JSON.parse(res.text);
-  //             assert.equal(data.stockData.stock, "GOOG");
-  //             assert.equal(data.stockData.likes, 1);
-  //             done(); // Signal Mocha that the asynchronous test is complete
-  //         });
-  // });
-
-  // test('Viewing two stocks', function (done) {
-  //     chai.request(server)
-  //         .get('/api/stock-prices?stock=GOOG&stock=AMD')
-  //         .end((err, res) => {
-  //             assert.equal(res.statusCode, 200);
-  //             const data = JSON.parse(res.text);
-  //             assert.equal(data.stockData[0].stock, "GOOG");
-  //             assert.equal(data.stockData[1].stock, "AMD");
-  //             done(); // Signal Mocha that the asynchronous test is complete
-  //         });
-  // });
-
   // test('Viewing two stocks and liking them', function (done) {
   //     chai.request(server)
   //         .get('/api/stock-prices?stock=GOOG&stock=AMD&like=true')
