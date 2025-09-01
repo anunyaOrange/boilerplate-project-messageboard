@@ -13,25 +13,22 @@ suite('Functional Tests', function () {
       .send({ text: "First text on test-board with delete_password = 123456", delete_password: "123456" })
       .end((err, res) => {
         assert.equal(res.statusCode, 200);
-        const data = res.body;
-        console.log("data", data);
-        assert.isArray(data); 
-        // assert.equal(data[0].text, text);
-        assert.isNotNull(data[0]._id);
-        // assert.equal(new Date(data[0].created_on).toDateString(), date.toDateString());
-        assert.equal(data[0].bumped_on, data[0].created_on);
-        assert.isArray(data[0].replies);
-        // assert.property(data, 'board');
-        // assert.property(data, 'delete_password');
-        // assert.property(data, 'text');
-        // assert.property(data, 'created_on');
-        // assert.isArray(data.replies);
-        // assert.equal(data.board, "test-board");
-        // assert.equal(data.text, "First text on test-board with delete_password = 123456");
-        // assert.equal(data.delete_password, "123456");
-        // assert.isString(data.created_on);
-        // assert.equal(data.replies.length, 0);
-        // assert.equal(data, "success");
+        const body = res.body;
+        console.log("body", body);
+        assert.isArray(body);
+        const data = body[0];
+        assert.property(data, 'delete_password');
+        assert.property(data, 'text');
+        assert.property(data, 'created_on');
+
+        assert.isNotNull(data._id);
+        // assert.equal(new Date(data.created_on).toDateString(), date.toDateString());
+        assert.isString(data.created_on);
+        assert.equal(data.bumped_on, data[0].created_on);
+        assert.isArray(data.replies);
+
+        assert.equal(data.text, "First text on test-board with delete_password = 123456");
+        assert.equal(data.delete_password, "123456");
         done();
       });
   });
