@@ -100,8 +100,12 @@ module.exports = function (app) {
         text: thread.text,
         created_on: thread.created_on,
         bumped_on: thread.bumped_on,
-        reported: thread.reported,
-        replies: thread.replies.slice(-3), // Limit to 3 replies
+        // reported: thread.reported,
+        replies: thread.replies.sort((a, b) => b.created_on - a.created_on).slice(-3).map(reply => ({
+          _id: reply._id,
+          text: reply.text,
+          created_on: reply.created_on,
+        })), // Limit to 3 replies
       }));
       // console.log("GET /api/threads/:board recentThreads: ", recentThreads);
       res.json(recentThreads);
