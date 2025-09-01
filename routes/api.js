@@ -99,6 +99,8 @@ module.exports = function (app) {
         _id: thread._id,
         text: thread.text,
         created_on: thread.created_on,
+        bumped_on: thread.bumped_on,
+        reported: thread.reported,
         replies: thread.replies.slice(-3), // Limit to 3 replies
       }));
       // console.log("GET /api/threads/:board recentThreads: ", recentThreads);
