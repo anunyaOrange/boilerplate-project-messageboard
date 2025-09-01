@@ -13,8 +13,14 @@ suite('Functional Tests', function () {
       .send({ text: "First text on test-board with delete_password = 123456", delete_password: "123456" })
       .end((err, res) => {
         assert.equal(res.statusCode, 200);
-        const data = res.text;
-        // assert.isObject(data);
+        const data = res.body;
+        console.log("data", data);
+        assert.isArray(data); 
+        // assert.equal(data[0].text, text);
+        assert.isNotNull(data[0]._id);
+        // assert.equal(new Date(data[0].created_on).toDateString(), date.toDateString());
+        assert.equal(data[0].bumped_on, data[0].created_on);
+        assert.isArray(data[0].replies);
         // assert.property(data, 'board');
         // assert.property(data, 'delete_password');
         // assert.property(data, 'text');
@@ -25,7 +31,7 @@ suite('Functional Tests', function () {
         // assert.equal(data.delete_password, "123456");
         // assert.isString(data.created_on);
         // assert.equal(data.replies.length, 0);
-        assert.equal(data, "success");
+        // assert.equal(data, "success");
         done();
       });
   });
@@ -37,7 +43,7 @@ suite('Functional Tests', function () {
         assert.equal(res.statusCode, 200);
         const data = res.body;
         // assert.isObject(data);
-        console.log("Viewing threads data: ", data);
+        // console.log("Viewing threads data: ", data);
         done(); // Signal Mocha that the asynchronous test is complete
       });
   });

@@ -130,7 +130,7 @@ module.exports = function (app) {
       } else {
         boardDB[0].threads.push(data);
       }
-      res.json(data);
+      res.json([data]);
     })
 
     .put((req, res) => {
