@@ -32,12 +32,12 @@ suite('Functional Tests', function () {
 
   test('Viewing the 10 most recent threads with 3 replies each', function (done) {
     chai.request(server)
-      .get('/api/threads/test-board')
+      .get('/api/threads/example')
       .end((err, res) => {
         assert.equal(res.statusCode, 200);
         const data = res.body;
         // assert.isObject(data);
-        // console.log("Viewing threads data: ", data);
+        console.log("Viewing threads data: ", data);
         done(); // Signal Mocha that the asynchronous test is complete
       });
   });
