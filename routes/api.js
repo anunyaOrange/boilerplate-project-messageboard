@@ -111,7 +111,7 @@ module.exports = function (app) {
 
       const curDate = new Date();
       const data = {
-        tid: uuidv4(),
+        _id: uuidv4(),
         delete_password: req.body.delete_password,
         text: req.body.text,
         created_on: new Date(),
@@ -130,8 +130,7 @@ module.exports = function (app) {
       } else {
         boardDB[0].threads.push(data);
       }
-      res.set('Content-Type', 'text/plain');
-      res.send('success');
+      res.json(data);
     })
 
     .put((req, res) => {
