@@ -178,7 +178,7 @@ module.exports = function (app) {
 
       const curDate = new Date();
       const reply = {
-        rid: uuidv4(),
+        _id: uuidv4(),
         delete_password: delete_password,
         text: text,
         created_on: curDate,

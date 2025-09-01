@@ -24,7 +24,7 @@ suite('Functional Tests', function () {
         assert.isNotNull(data._id);
         // assert.equal(new Date(data.created_on).toDateString(), date.toDateString());
         assert.isString(data.created_on);
-        assert.equal(data.bumped_on, data[0].created_on);
+        assert.equal(data.bumped_on, data.created_on);
         assert.isArray(data.replies);
 
         assert.equal(data.text, "First text on test-board with delete_password = 123456");
