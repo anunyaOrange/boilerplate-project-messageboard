@@ -233,7 +233,18 @@ module.exports = function (app) {
         res.set('Content-Type', 'text/plain');
         return res.send('incorrect thread_id');
       }
-      res.json(thread);
+      const resThread = {
+        _id: thread._id,
+        text: thread.text,
+        created_on: thread.created_on,
+        bumped_on: thread.bumped_on,
+        replies: thread.replies.sort((a, b) => b.created_on - a.created_on).slice(-3).map(reply => ({
+          _id: reply._id,
+          text: reply.text,
+          created_on: reply.created_on,
+        }))
+      };
+      res.json(resThread);
     })
 
     .delete((req, res) => {
