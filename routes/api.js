@@ -95,7 +95,7 @@ module.exports = function (app) {
         return res.status(404).json({ message: 'No threads found for this board' });
       }
       // Limit to 10 most recent threads with 3 replies each
-      const recentThreads = threads.slice(-10).map(thread => ({
+      const recentThreads = threads.sort((a, b) => b.bumped_on - a.bumped_on).slice(-10).map(thread => ({
         _id: thread._id,
         text: thread.text,
         created_on: thread.created_on,
