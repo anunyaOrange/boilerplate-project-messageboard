@@ -36,7 +36,6 @@ const db = [
           text: 'This is example reply',
           delete_password: 'xxxxx',
           created_on: newDate,
-          bumped_on: newDate,
           reported: false,
         }],
       },
@@ -52,7 +51,6 @@ const db = [
           text: 'This is example reply',
           delete_password: 'xxxxx',
           created_on: newDate,
-          bumped_on: newDate,
           reported: false,
         }],
       },
@@ -68,7 +66,6 @@ const db = [
           text: 'This reply for delete',
           delete_password: '1234567',
           created_on: newDate,
-          bumped_on: newDate,
           reported: false,
         },
         {
@@ -76,7 +73,6 @@ const db = [
           text: 'This reply for reporting',
           delete_password: '1234567890',
           created_on: newDate,
-          bumped_on: newDate,
           reported: false,
         }],
       }
@@ -187,7 +183,6 @@ module.exports = function (app) {
         delete_password: delete_password,
         text: text,
         created_on: curDate,
-        bumped_on: curDate,
         reported: false,
       };
 
@@ -205,6 +200,7 @@ module.exports = function (app) {
       if (!thread) {
         return res.send('incorrect thread_id');
       }
+      thread.bumped_on = curDate;
       thread.replies.push(reply);
       res.send('success');
     })
